@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кейс-задача № 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <div class="slider">
+        <a class="previous" onclick="previousSlide()">&#10094;</a>    
+        <div class="item">
+            <div class="item_col">
+                <img src="https://images.wallpaperscraft.ru/image/single/pirs_prichal_more_118549_1920x1080.jpg">
+                <h3 class="number"></h3>
+             </div>   
+        </div>
+        <div class="item">
+            <div class="item_col">
+                <img src="https://images.wallpaperscraft.ru/image/single/oblaka_nebo_chb_1236123_1920x1080.jpg">
+                <h3 class="number"></h3>
+             </div>   
+        </div>
+        <div class="item">
+            <div class="item_col">
+                <img src="https://images.wallpaperscraft.ru/image/single/zvezdnoe_nebo_oblaka_zakat_120716_1920x1080.jpg">
+                <h3 class="number"></h3>
+             </div>   
+        </div>
+        <a class="next" onclick="nextSlide()">&#10095;</a>
+        <div class="mobile_buttons">
+            <a class="previous" onclick="previousSlide()">&#10094;</a>      
+            <a class="next" onclick="nextSlide()">&#10095;</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    document.onkeydown = checkKey;
+    
+    function nextSlide() {
+       showSlides(slideIndex += 1);
+    }
+
+    function previousSlide() {
+       showSlides(slideIndex -= 1);  
+    }
+
+    function checkKey(e) {
+        if (e.keyCode == '37') {
+            showSlides(slideIndex -= 1);  
+        }
+        else if (e.keyCode == '39') {
+            showSlides(slideIndex += 1);
+        }
+    }
+
+    function showSlides(n) {
+       let slides = document.getElementsByClassName("item");
+        if (n > slides.length) {
+           slideIndex = 1
+        }
+        if (n < 1) {
+           slideIndex = slides.length
+        }
+        for (let slide of slides) {
+           slide.style.display = "none";
+           slide.getElementsByClassName('number')[0].innerHTML = "Изображение "+slideIndex+' из '+slides.length;
+        }
+        slides[slideIndex - 1].style.display = "flex";    
+    }
+</script>
+
+
+<style>
+.slider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 80px;
+    padding: 50px;
+    box-shadow: 4px 4px 5px 4px rgb(26, 25, 25);
+    transition: 0.5s;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+    user-select: none;
+}
+
+.slider:hover {
+    box-shadow: 5px 6px 6px 4px rgb(26, 25, 25);
+    transition: 0.5s;
+}
+
+.item {
+    display: flex;
+    height: 100%;
+    color: white;
+    justify-content: space-between;
+}
+
+.item_col {
+    font-family: "Montserrat", sans-serif;
+    padding: 30px;
+    align-self: center;
+    text-align: center;
+}
+
+.btn {
+    padding: 10px;
+    background-color: blueviolet;
+    color: aliceblue;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color:rgb(98, 32, 160);
+    transition: 0.5s;
+}
+
+.slider .item img {
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+    border-radius: 20px;
+}
+
+.mobile_buttons{
+    display: none;
+    gap: 20px;
+}
+
+.previous, .next {
+    align-self: center;
+    cursor: pointer;
+    transition: 0.5s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1f1f1f;
+    border-radius: 10px;
+    color: aquamarine;
+}
+
+.previous:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+}
+
+.slider .item {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@media (max-width: 1240px) { 
+    .slider{
+        flex-direction: column;
+    }
+    .slider .previous,.slider .next {
+        display: none;
+    }
+    .mobile_buttons{
+        display: flex;
+    }
+    .mobile_buttons .previous, .mobile_buttons .next{
+        display: flex;
+    }
+}
+</style>

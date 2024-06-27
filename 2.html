@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кейс-задача № 2</title>
+</head>
+<body>
+</body>
+</html>
+
+<script>
+let day = '';
+let month = '';
+let year = '';
+
+
+do {day = prompt("День рождения", '09');
+} while (!Number(day) || day > 31);
+
+do {month = prompt("Месяц рождения", '03');
+} while (!Number(month) || month > 12);
+
+do {year = prompt("Год рождения", '1990');
+} while (!Number(year) || year < 1000 || year > new Date().getFullYear());
+
+let birthday = new Date(year+'-'+month+'-'+day);
+
+
+if(birthday){
+  alert("День недели - "+getWeekDay(birthday));
+  alert("Введеный год - "+isLeapYear(new Date(year, 2, 0)));
+  alert("Вам сейчас лет - "+getHowOld(birthday));
+  alert("Ответ смотрим в консоли");
+  printDateInPattern(day+' '+month+' '+year);
+}
+
+function getWeekDay(date) {
+  let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+
+  return days[date.getDay()];
+}
+
+function isLeapYear(date){
+  if (date.getDate() == 29) {
+    return 'високосный';
+  } else {
+    return 'невисокосный';
+  }
+}
+
+function getHowOld(date) {
+  let currentDate = new Date();
+  let ageInMilliseconds = currentDate - date;
+  let ageInSeconds = ageInMilliseconds / 1000;
+  let ageInMinutes = ageInSeconds / 60;
+  let ageInHours = ageInMinutes / 60;
+  let ageInDays = ageInHours / 24;
+  let ageInYears = ageInDays / 365;
+  return Math.round(ageInYears);
+}
+
+function printDateInPattern(dateStr) {
+  const numberPatterns = {
+    '0': [
+      ' *** ',
+      '*   *',
+      '*   *',
+      '*   *',
+      ' *** '
+    ],
+    '1': [
+      '  *  ',
+      ' **  ',
+      '  *  ',
+      '  *  ',
+      '*****'
+    ],
+    '2': [
+      ' *** ',
+      '*   *',
+      '   * ',
+      '  *  ',
+      '*****'
+    ],
+    '3': [
+      ' *** ',
+      '    *',
+      '  ** ',
+      '    *',
+      ' *** '
+    ],
+    '4': [
+      '   * ',
+      '  ** ',
+      ' * * ',
+      '*****',
+      '   * '
+    ],
+    '5': [
+      '*****',
+      '*    ',
+      '**** ',
+      '    *',
+      '**** '
+    ],
+    '6': [
+      ' ****',
+      '*    ',
+      '**** ',
+      '*   *',
+      ' *** '
+    ],
+    '7': [
+      '*****',
+      '   * ',
+      '  *  ',
+      ' *   ',
+      '*    '
+    ],
+    '8': [
+      ' *** ',
+      '*   *',
+      ' *** ',
+      '*   *',
+      ' *** '
+    ],
+    '9': [
+      ' *** ',
+      '*   *',
+      ' ****',
+      '    *',
+      '**** '
+    ]
+  };
+
+  const lines = ['', '', '', '', ''];
+  for (let char of dateStr) {
+    if (char === ' ') {
+      for (let i = 0; i < 5; i++) {
+        lines[i] += '  ';
+      }
+    } else {
+      const pattern = numberPatterns[char];
+      for (let i = 0; i < 5; i++) {
+        lines[i] += pattern[i] + ' ';
+      }
+    }
+  }
+  for (let line of lines) {
+    console.log(line);
+  }
+}
+</script>
